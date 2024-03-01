@@ -10,4 +10,14 @@ public class ECommerceApplication {
         SpringApplication.run(ECommerceApplication.class, args);
     }
 
+//    @Bean
+//    ApplicationRunner a(ProductItemRepository repository) {
+//        return new ApplicationRunner() {
+//            @Override
+//            public void run(ApplicationArguments args) throws Exception {
+//                repository.save(new ProductItem("1", "양말"));
+//            }
+//        };
+//    }
+
 }
