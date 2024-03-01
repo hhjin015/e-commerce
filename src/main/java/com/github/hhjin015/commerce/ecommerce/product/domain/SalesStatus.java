@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum SalesStatus {
-    ON_SALE, SOLD_OUT
+    PENDING, ON_SALE, SOLD_OUT
 }

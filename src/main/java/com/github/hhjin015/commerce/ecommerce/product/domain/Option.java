@@ -6,8 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Option {
-    private int optionId;
-    private OptionName optionName;
-    private OptionValue optionValue;
+    private String name;
+    private String value;
     private int additionalAmount;
 }

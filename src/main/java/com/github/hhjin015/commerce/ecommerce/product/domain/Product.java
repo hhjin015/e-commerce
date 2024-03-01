@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.Set;
-
 /**
  * 판매자가 생성하는 객체
  */
@@ -20,7 +17,5 @@ public class Product {
     private String name;
     private String description;
     private int defaultPrice;
-    private List<Option> options;
-    private int quantity;
-    private SalesStatus salesStatus;
+//    TODO private SalesStatus salesStatus;
 }
