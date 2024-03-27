@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Option {
-    private String name;
-    private List<String> values;
+public class OptionInfo {
+    private List<Option> options;
+    private List<OptionCombination> optionCombinations;
 }

@@ -1,47 +1,24 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
-
-/**
- * 구매자가 생성하는 객체
- */
 @Getter
-@AllArgsConstructor
 public class ProductItem {
-    private int productItemId;
+    private String productItemId;
     private Product product;
-    private List<Option> options;
-    private int totalPrice;
-    private int quantity;
-    private SalesStatus salesStatus;
+    private OptionCombination optionCombination;
+    private int salePrice;
 
-    public ProductItem(int productItemId, Product product, List<Option> options, int quantity) {
+    public ProductItem(String productItemId, Product product, OptionCombination optionCombination) {
         this.productItemId = productItemId;
         this.product = product;
-        this.options = options;
-        this.quantity = quantity;
+        this.optionCombination = optionCombination;
 
-        this.totalPrice = calcTotalPrice();
+        this.salePrice = calcSalePrice();
     }
 
-    private int calcTotalPrice() {
-        int price = 0;
-        for (Option option : options) {
-            price += option.getAdditionalAmount();
-        }
-
-        return price + product.getDefaultPrice();
-    }
-
-    public void changeQuantity(int provided) {
-
-        if (this.quantity - provided < 0) {
-            throw new IllegalArgumentException("갯수는 0개 이하일 수 없어요");
-        }
-
-        this.quantity -= provided;
+    private int calcSalePrice() {
+        if(this.optionCombination == null) return this.product.getPrice();
+        else return this.optionCombination.getPrice() + this.product.getPrice();
     }
 }

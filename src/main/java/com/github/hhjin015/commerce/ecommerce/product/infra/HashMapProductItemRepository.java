@@ -21,6 +21,6 @@ public class HashMapProductItemRepository implements ProductItemRepository {
 
     @Override
     public void save(Product productItem) {
-        storage.put(productItem.getId(), productItem);
+
     }
 }
