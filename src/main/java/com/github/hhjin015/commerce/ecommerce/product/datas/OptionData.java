@@ -1,4 +1,4 @@
-package com.github.hhjin015.commerce.ecommerce.product.domain;
+package com.github.hhjin015.commerce.ecommerce.product.datas;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Option {
+public class OptionData {
     private String name;
     private List<String> values;
 }

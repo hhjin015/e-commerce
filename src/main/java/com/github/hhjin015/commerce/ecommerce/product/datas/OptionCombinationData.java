@@ -1,4 +1,4 @@
-package com.github.hhjin015.commerce.ecommerce.product.request;
+package com.github.hhjin015.commerce.ecommerce.product.datas;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateOptionCombinationRequest {
+public class OptionCombinationData {
     private List<String> optionNames;
-    private int price;
-    private int quantity;
+    private int additionalPrice;
+    private int optionCombQuantity;
 }

@@ -1,7 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.controller;
 
-import com.github.hhjin015.commerce.ecommerce.product.domain.Product;
-import com.github.hhjin015.commerce.ecommerce.product.domain.ProductItemRepository;
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
+import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

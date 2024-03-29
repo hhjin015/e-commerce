@@ -1,7 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.infra;
 
-import com.github.hhjin015.commerce.ecommerce.product.domain.Product;
-import com.github.hhjin015.commerce.ecommerce.product.domain.ProductItemRepository;
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
+import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -21,6 +21,5 @@ public class HashMapProductItemRepository implements ProductItemRepository {
 
     @Override
     public void save(Product productItem) {
-
     }
 }
