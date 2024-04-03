@@ -8,13 +8,11 @@ import java.util.List;
 
 class OptionFactoryTest {
 
-    OptionFactory optionFactory = new OptionFactory();
+    OptionFactory sut = new OptionFactory();
 
     @Test
     void createOption() {
-        OptionData data = new OptionData("사이즈", List.of("S, M, L"));
-
-        Option factoryBy = optionFactory.createBy(data);
-        Assertions.assertThat(factoryBy).isNotNull();
+        Option actual = sut.createBy(new OptionData("사이즈", List.of("S, M, L")));
+        Assertions.assertThat(actual).isNotNull();
     }
 }

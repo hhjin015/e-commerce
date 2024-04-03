@@ -14,8 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductItemsFactoryTest {
 
-    OptionCombinationFactory optionCombinationFactory = new OptionCombinationFactory();
-    ProductItemsFactory sut = new ProductItemsFactory(optionCombinationFactory);
+    ProductItemsFactory sut = new ProductItemsFactory(new OptionCombinationFactory());
 
     public static final String ANY_ID = "ID";
     public static final Product PRODUCT_WITH_OPTION = getProduct(1000, true, getOptions());

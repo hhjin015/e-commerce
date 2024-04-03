@@ -8,14 +8,14 @@ import java.util.List;
 
 class OptionCombinationFactoryTest {
 
-    OptionCombinationFactory optionCombinationFactory = new OptionCombinationFactory();
+    OptionCombinationFactory sut = new OptionCombinationFactory();
 
     @Test
     void createOptionCombination() {
         OptionCombinationData data = new OptionCombinationData(List.of("S,빨강"), 1000, 10);
-        OptionCombination factoryBy = optionCombinationFactory.createBy(data);
+        OptionCombination actual = sut.createBy(data);
 
-        Assertions.assertThat(factoryBy).isNotNull();
+        Assertions.assertThat(actual).isNotNull();
     }
 
 }
