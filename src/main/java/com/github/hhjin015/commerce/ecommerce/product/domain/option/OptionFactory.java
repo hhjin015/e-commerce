@@ -1,6 +1,6 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.option;
 
-import com.github.hhjin015.commerce.ecommerce.product.datas.OptionData;
+import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
 
 public class OptionFactory {
 

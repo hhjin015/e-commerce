@@ -1,4 +1,4 @@
-package com.github.hhjin015.commerce.ecommerce.product.datas;
+package com.github.hhjin015.commerce.ecommerce.product.service.datas;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +12,6 @@ public class ProductData {
     private String description;
     private int price;
     private boolean optionUsable;
-    private List<OptionData> optionProps;
+    private List<OptionData> optionDatas;
 
 }

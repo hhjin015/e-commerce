@@ -1,9 +1,9 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.product;
 
-import com.github.hhjin015.commerce.ecommerce.product.datas.OptionData;
-import com.github.hhjin015.commerce.ecommerce.product.datas.ProductData;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.Option;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactory;
+import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
+import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductData;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -21,11 +21,10 @@ public class ProductFactory {
         if (productData.isOptionUsable()) {
             options = new ArrayList<>();
 
-            for (OptionData optionProp : productData.getOptionProps()) {
-                options.add(optionFactory.createBy(optionProp));
+            for (OptionData optionData : productData.getOptionDatas()) {
+                options.add(optionFactory.createBy(optionData));
             }
         }
-
         return new Product(
                 UUID.randomUUID().toString(),
                 productData.getName(),
