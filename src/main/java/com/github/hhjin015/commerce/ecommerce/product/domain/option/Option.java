@@ -8,6 +8,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class Option {
-    private String name;
-    private List<String> values;
+    private final String name;
+    private final List<String> values;
 }

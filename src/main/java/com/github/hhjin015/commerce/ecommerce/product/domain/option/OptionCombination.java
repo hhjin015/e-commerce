@@ -9,5 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 public class OptionCombination {
     private final List<String> optionNames;
-    private int additionalPrice;
+    private final int additionalPrice;
 }
