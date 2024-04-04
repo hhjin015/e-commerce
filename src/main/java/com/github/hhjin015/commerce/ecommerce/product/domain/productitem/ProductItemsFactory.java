@@ -5,10 +5,13 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombin
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductItemData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+@Component
 @RequiredArgsConstructor
 public class ProductItemsFactory {
 
@@ -20,10 +23,24 @@ public class ProductItemsFactory {
         if (product.isOptionUsable()) {
             for (ProductItemData data : productItemDatas) {
                 OptionCombination optionComb = optionCombinationFactory.createBy(data.getOptionCombinationData());
-                productItems.add(new ProductItem(ProductItemId.of("ID"), product, data.getOptionCombinationData().getOptionCombQuantity(), optionComb));
+                productItems.add(
+                        new ProductItem(
+                                ProductItemId.of(UUID.randomUUID().toString()),
+                                product,
+                                data.getOptionCombinationData().getOptionCombQuantity(),
+                                optionComb
+                        )
+                );
             }
         } else {
-            productItems.add(new ProductItem(ProductItemId.of("ID"), product, productItemDatas.get(0).getQuantity(), null));
+            productItems.add(
+                    new ProductItem(
+                            ProductItemId.of(UUID.randomUUID().toString()),
+                            product,
+                            productItemDatas.get(0).getQuantity(),
+                            null
+                    )
+            );
         }
 
         return productItems;

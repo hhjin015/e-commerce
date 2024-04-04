@@ -5,10 +5,13 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactor
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+@Component
 @RequiredArgsConstructor
 public class ProductFactory {
 
@@ -25,7 +28,7 @@ public class ProductFactory {
             }
         }
         return new Product(
-                ProductId.of("ID"),
+                ProductId.of(UUID.randomUUID().toString()),
                 productData.getName(),
                 productData.getDescription(),
                 productData.getPrice(),

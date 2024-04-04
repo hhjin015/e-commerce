@@ -2,6 +2,7 @@ package com.github.hhjin015.commerce.ecommerce.product.service;
 
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductFactory;
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepository;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
@@ -22,7 +23,7 @@ public class CreateProductService {
     private final ProductItemsFactory productItemsFactory;
     private final ProductItemRepository productItemRepository;
 
-    public void createProduct(ProductData productData, List<ProductItemData> productItemDatas) {
+    public ProductId create(ProductData productData, List<ProductItemData> productItemDatas) {
         Product product = productFactory.createBy(productData);
         List<ProductItem> productItems = productItemsFactory.createBy(productItemDatas, product);
 
@@ -31,5 +32,6 @@ public class CreateProductService {
         }
 
         productRepository.save(product);
+        return product.getId();
     }
 }
