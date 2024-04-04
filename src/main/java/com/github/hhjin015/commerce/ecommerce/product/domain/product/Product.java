@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 public class Product {
-    private final String id;
+    private final ProductId id;
     private String name;
     private String description;
     private int price;
@@ -16,7 +16,7 @@ public class Product {
     private List<Option> options;
     private ProductSalesStatus salesStatus;
 
-    public Product(String id, String name, String description, int price, boolean optionUsable, List<Option> options) {
+    public Product(ProductId id, String name, String description, int price, boolean optionUsable, List<Option> options) {
         this.id = id;
         this.name = name;
         this.description = description;

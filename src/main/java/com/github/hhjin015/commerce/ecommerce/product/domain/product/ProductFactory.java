@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ProductFactory {
@@ -26,7 +25,7 @@ public class ProductFactory {
             }
         }
         return new Product(
-                UUID.randomUUID().toString(),
+                ProductId.of("ID"),
                 productData.getName(),
                 productData.getDescription(),
                 productData.getPrice(),

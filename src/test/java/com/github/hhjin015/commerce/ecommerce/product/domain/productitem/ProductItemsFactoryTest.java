@@ -1,5 +1,6 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionCombinationData;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductItemData;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.Option;
@@ -16,7 +17,7 @@ class ProductItemsFactoryTest {
 
     ProductItemsFactory sut = new ProductItemsFactory(new OptionCombinationFactory());
 
-    public static final String ANY_ID = "ID";
+    public static final ProductId ANY_ID = ProductId.of("ID");
     public static final Product PRODUCT_WITH_OPTION = getProduct(1000, true, getOptions());
     public static final Product PRODUCT_WITHOUT_OPTION = getProduct(2000, false, null);
     public static final OptionCombinationData OPTION_COMBINATION_DATA = getOptionCombinationData(1000, 10);
@@ -58,8 +59,8 @@ class ProductItemsFactoryTest {
 
     private static List<Option> getOptions() {
         return List.of(
-                new Option("size", List.of("S, M")),
-                new Option("color", List.of("red, blue"))
+                Option.of("size", List.of("S, M")),
+                Option.of("color", List.of("red, blue"))
         );
     }
 

@@ -5,6 +5,6 @@ import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
 public class OptionFactory {
 
     public Option createBy(OptionData optionData) {
-        return new Option(optionData.getName(), optionData.getValues());
+        return Option.of(optionData.getName(), optionData.getValues());
     }
 }

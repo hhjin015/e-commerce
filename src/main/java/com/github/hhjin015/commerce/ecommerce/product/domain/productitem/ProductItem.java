@@ -7,14 +7,14 @@ import lombok.Getter;
 
 @Getter
 public class ProductItem {
-    private final String productItemId;
+    private final ProductItemId productItemId;
     private final Product product;
     private int salePrice;
     private int quantity;
     private final OptionCombination optionCombination;
     private ProductSalesStatus salesStatus;
 
-    public ProductItem(String productItemId, Product product, int quantity, OptionCombination optionCombination) {
+    public ProductItem(ProductItemId productItemId, Product product, int quantity, OptionCombination optionCombination) {
         this.productItemId = productItemId;
         this.product = product;
         this.quantity = quantity;

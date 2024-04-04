@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ProductItemsFactory {
@@ -21,10 +20,10 @@ public class ProductItemsFactory {
         if (product.isOptionUsable()) {
             for (ProductItemData data : productItemDatas) {
                 OptionCombination optionComb = optionCombinationFactory.createBy(data.getOptionCombinationData());
-                productItems.add(new ProductItem(UUID.randomUUID().toString(), product, data.getOptionCombinationData().getOptionCombQuantity(), optionComb));
+                productItems.add(new ProductItem(ProductItemId.of("ID"), product, data.getOptionCombinationData().getOptionCombQuantity(), optionComb));
             }
         } else {
-            productItems.add(new ProductItem(UUID.randomUUID().toString(), product, productItemDatas.get(0).getQuantity(), null));
+            productItems.add(new ProductItem(ProductItemId.of("ID"), product, productItemDatas.get(0).getQuantity(), null));
         }
 
         return productItems;

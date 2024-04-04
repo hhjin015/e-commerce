@@ -5,6 +5,6 @@ import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionCombin
 public class OptionCombinationFactory {
 
     public OptionCombination createBy(OptionCombinationData optionCombinationData) {
-        return new OptionCombination(optionCombinationData.getOptionNames(), optionCombinationData.getAdditionalPrice());
+        return OptionCombination.of(optionCombinationData.getOptionNames(), optionCombinationData.getAdditionalPrice());
     }
 }
