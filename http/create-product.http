@@ -1,0 +1,77 @@
+### 상품의 옵션이 없는 경우
+POST http://localhost:8080/product HTTP/1.1
+Content-Type: application/json
+
+{
+  "productRequest": {
+    "name": "양말",
+    "description": "양말 사세요",
+    "price": 1000,
+    "optionUsable": false,
+    "optionRequests": null
+  },
+  "productItemRequests": [
+    {
+      "quantity": 10,
+      "optionCombinationRequest": null
+    }
+  ]
+}
+
+### 상품의 옵션이 있는 경우
+POST http://localhost:8080/product HTTP/1.1
+Content-Type: application/json
+
+{
+  "productRequest": {
+    "name": "양말",
+    "description": "양말 사세요",
+    "price": 1000,
+    "optionUsable": true,
+    "optionRequests": [
+      {
+        "name": "사이즈",
+        "values": [
+          "S",
+          "M",
+          "L"
+        ]
+      }
+    ]
+  },
+  "productItemRequests": [
+    {
+      "quantity": 100,
+      "optionCombinationRequest": {
+        "optionNames": [
+          "S"
+        ],
+        "additionalPrice": 0,
+        "optionCombQuantity": 10
+      }
+    },
+    {
+      "quantity": 20,
+      "optionCombinationRequest": {
+        "optionNames": [
+          "M"
+        ],
+        "additionalPrice": 1000,
+        "optionCombQuantity": 10
+      }
+    },
+    {
+      "quantity": 30,
+      "optionCombinationRequest": {
+        "optionNames": [
+          "L"
+        ],
+        "additionalPrice": 2000,
+        "optionCombQuantity": 10
+      }
+    }
+  ]
+}
+
+
+
