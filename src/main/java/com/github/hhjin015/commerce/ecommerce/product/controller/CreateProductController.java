@@ -1,7 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.controller;
 
+import com.github.hhjin015.commerce.ecommerce.product.controller.request.*;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
-import com.github.hhjin015.commerce.ecommerce.product.request.*;
 import com.github.hhjin015.commerce.ecommerce.product.service.CreateProductService;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionCombinationData;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
@@ -16,60 +16,62 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @RestController
 @RequiredArgsConstructor
 public class CreateProductController {
 
     private final CreateProductService createProductService;
 
-    @PostMapping("/product")
-    public ResponseEntity<ProductId> createProduct(@RequestBody ProductAndProductItemRequest request) {
-        ProductData productData = parseProductRequestToData(request.getProductRequest());
-        List<ProductItemData> productItemData = parseProductItemRequestToData(request.getProductItemRequests());
+    @PostMapping("/products")
+    public ResponseEntity<ProductId> createProduct(@RequestBody CreateProductRequest request) {
+        ProductData productData = parseProductDtoToData(request.getProductDto());
+        List<ProductItemData> productItemData = parseProductItemDtoToData(request.getProductItemsDto());
         ProductId productId = createProductService.create(productData, productItemData);
 
         return ResponseEntity.ok(productId);
     }
 
 
-    private ProductData parseProductRequestToData(ProductRequest request) {
+    private ProductData parseProductDtoToData(ProductDto request) {
         return new ProductData(
                 request.getName(),
                 request.getDescription(),
                 request.getPrice(),
                 request.isOptionUsable(),
-                parseOptionRequestToData(request.getOptionRequests())
+                parseOptionDtoToData(request.getOptionsDto())
         );
     }
 
-    private List<OptionData> parseOptionRequestToData(List<OptionRequest> requests) {
-        if (requests == null) return null;
+    private List<OptionData> parseOptionDtoToData(List<OptionDto> requests) {
+        if (isNull(requests)) return null;
 
-        List<OptionData> optionDatas = new ArrayList<>();
-        for (OptionRequest request : requests) {
-            optionDatas.add(new OptionData(request.getName(), request.getValues()));
+        List<OptionData> optionsData = new ArrayList<>();
+        for (OptionDto request : requests) {
+            optionsData.add(new OptionData(request.getName(), request.getValues()));
         }
 
-        return optionDatas;
+        return optionsData;
     }
 
-    private List<ProductItemData> parseProductItemRequestToData(List<ProductItemRequest> requests) {
-        List<ProductItemData> productItemDatas = new ArrayList<>();
+    private List<ProductItemData> parseProductItemDtoToData(List<ProductItemDto> requests) {
+        List<ProductItemData> productItemsData = new ArrayList<>();
 
-        for (ProductItemRequest request : requests) {
-            productItemDatas.add(
+        for (ProductItemDto request : requests) {
+            productItemsData.add(
                     new ProductItemData(
                             request.getQuantity(),
-                            parseOptionCombinationRequestToData(request.getOptionCombinationRequest())
+                            parseOptionCombinationDtoToData(request.getOptionCombinationDto())
                     )
             );
         }
 
-        return productItemDatas;
+        return productItemsData;
     }
 
-    private OptionCombinationData parseOptionCombinationRequestToData(OptionCombinationRequest request) {
-        if (request == null) return null;
+    private OptionCombinationData parseOptionCombinationDtoToData(OptionCombinationDto request) {
+        if (isNull(request)) return null;
 
         return new OptionCombinationData(request.getOptionNames(), request.getAdditionalPrice(), request.getOptionCombQuantity());
     }

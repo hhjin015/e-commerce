@@ -5,14 +5,16 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombin
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import lombok.Getter;
 
+import static java.util.Objects.isNull;
+
 @Getter
 public class ProductItem {
     private final ProductItemId productItemId;
     private final Product product;
-    private int salePrice;
-    private int quantity;
+    private final int salePrice;
+    private final int quantity;
     private final OptionCombination optionCombination;
-    private ProductSalesStatus salesStatus;
+    private final ProductSalesStatus salesStatus;
 
     public ProductItem(ProductItemId productItemId, Product product, int quantity, OptionCombination optionCombination) {
         this.productItemId = productItemId;
@@ -24,7 +26,7 @@ public class ProductItem {
     }
 
     private int calcSalePrice() {
-        if (this.optionCombination == null) return this.product.getPrice();
-        else return this.optionCombination.getAdditionalPrice() + this.product.getPrice();
+        if (isNull(this.optionCombination)) return this.product.getPrice();
+        return this.optionCombination.getAdditionalPrice() + this.product.getPrice();
     }
 }

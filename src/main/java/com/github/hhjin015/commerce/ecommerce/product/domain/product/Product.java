@@ -9,12 +9,12 @@ import java.util.List;
 @Getter
 public class Product {
     private final ProductId id;
-    private String name;
-    private String description;
-    private int price;
-    private boolean optionUsable;
-    private List<Option> options;
-    private ProductSalesStatus salesStatus;
+    private final String name;
+    private final String description;
+    private final int price;
+    private final boolean optionUsable;
+    private final List<Option> options;
+    private final ProductSalesStatus salesStatus;
 
     public Product(ProductId id, String name, String description, int price, boolean optionUsable, List<Option> options) {
         this.id = id;

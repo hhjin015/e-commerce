@@ -1,5 +1,5 @@
 ### ProductId로 하나의 Product에 관련된 모든 ProductItem들을 조회하는 경우
-GET http://localhost:8080/product-items/{product_id} HTTP/1.1
+GET http://localhost:8080/product-items?productId={productId} HTTP/1.1
 
 ### ProductItemId로 하나의 ProductItem을 조회하는 경우
-GET http://localhost:8080/product-item/{product_item_id} HTTP/1.1
+GET http://localhost:8080/product-items/{product_item_id} HTTP/1.1

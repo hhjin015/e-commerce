@@ -15,11 +15,11 @@ public class ProductItemQueryService {
 
     private final ProductItemRepository productItemRepository;
 
-    public List<ProductItem> findAllBy(ProductId id) {
-        return productItemRepository.findAllBy(id);
+    public List<ProductItem> findAllBy(String id) {
+        return productItemRepository.findAllBy(ProductId.of(id));
     }
 
-    public ProductItem findBy(ProductItemId id) {
-        return productItemRepository.findBy(id);
+    public ProductItem findBy(String id) {
+        return productItemRepository.findBy(ProductItemId.of(id));
     }
 }

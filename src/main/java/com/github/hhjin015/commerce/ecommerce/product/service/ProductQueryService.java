@@ -12,7 +12,7 @@ public class ProductQueryService {
 
     private final ProductRepository productRepository;
 
-    public Product findBy(ProductId productId) {
-        return productRepository.findBy(productId);
+    public Product findBy(String id) {
+        return productRepository.findBy(ProductId.of(id));
     }
 }
