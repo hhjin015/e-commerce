@@ -1,6 +1,6 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 
-import com.github.hhjin015.commerce.ecommerce.product.domain.ProductSalesStatus;
+import com.github.hhjin015.commerce.ecommerce.product.domain.ProductItemSalesStatus;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombination;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import lombok.Getter;
@@ -14,14 +14,14 @@ public class ProductItem {
     private final int salePrice;
     private final int quantity;
     private final OptionCombination optionCombination;
-    private final ProductSalesStatus salesStatus;
+    private final ProductItemSalesStatus salesStatus;
 
     public ProductItem(ProductItemId productItemId, Product product, int quantity, OptionCombination optionCombination) {
         this.productItemId = productItemId;
         this.product = product;
         this.quantity = quantity;
         this.optionCombination = optionCombination;
-        this.salesStatus = ProductSalesStatus.PENDING;
+        this.salesStatus = ProductItemSalesStatus.ON_SALE;
         this.salePrice = calcSalePrice();
     }
 

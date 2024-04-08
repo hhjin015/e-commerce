@@ -1,6 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.controller;
 
 import com.github.hhjin015.commerce.ecommerce.product.controller.request.*;
+import com.github.hhjin015.commerce.ecommerce.product.controller.response.ProductIdResponse;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.service.CreateProductService;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionCombinationData;
@@ -25,14 +26,13 @@ public class CreateProductController {
     private final CreateProductService createProductService;
 
     @PostMapping("/products")
-    public ResponseEntity<ProductId> createProduct(@RequestBody CreateProductRequest request) {
+    public ResponseEntity<ProductIdResponse> createProduct(@RequestBody CreateProductRequest request) {
         ProductData productData = parseProductDtoToData(request.getProductDto());
         List<ProductItemData> productItemData = parseProductItemDtoToData(request.getProductItemsDto());
         ProductId productId = createProductService.create(productData, productItemData);
 
-        return ResponseEntity.ok(productId);
+        return ResponseEntity.ok(ProductIdResponse.of(productId.getValue()));
     }
-
 
     private ProductData parseProductDtoToData(ProductDto request) {
         return new ProductData(
