@@ -18,9 +18,9 @@ class ProductItemsFactoryTest {
     ProductItemsFactory sut = new ProductItemsFactory(new OptionCombinationFactory());
 
     public static final ProductId ANY_ID = ProductId.of("ID");
-    public static final Product PRODUCT_WITH_OPTION = getProduct(1000, true, getOptions());
-    public static final Product PRODUCT_WITHOUT_OPTION = getProduct(2000, false, null);
-    public static final OptionCombinationData OPTION_COMBINATION_DATA = getOptionCombinationData(1000, 10);
+    public static final Product PRODUCT_WITH_OPTION = getProduct(1000, getOptions());
+    public static final Product PRODUCT_WITHOUT_OPTION = getProduct(2000, null);
+    public static final OptionCombinationData OPTION_COMBINATION_DATA = getOptionCombinationData(1000);
     public static final ProductItemData PRODUCT_ITEM_DATA_WITH_OPTIONCOMB = new ProductItemData(0, OPTION_COMBINATION_DATA);
     public static final ProductItemData PRODUCT_ITEM_DATA_WITHOUT_OPTIONCOMB = new ProductItemData(20, null);
 
@@ -32,29 +32,14 @@ class ProductItemsFactoryTest {
     }
 
     @Test
-    @DisplayName("옵션을 사용하지 않을 경우, ProductItemData의 quantity가 ProductItem의 quantity가 된다.")
-    void setQuantityWithoutOption() {
-        List<ProductItem> actual = sut.createBy(List.of(PRODUCT_ITEM_DATA_WITHOUT_OPTIONCOMB), PRODUCT_WITHOUT_OPTION);
-
-        assertThat(actual.get(0).getQuantity()).isEqualTo(PRODUCT_ITEM_DATA_WITHOUT_OPTIONCOMB.getQuantity());
-    }
-
-    @Test
     @DisplayName("옵션을 사용할 경우, Product의 price와 OptionCombinationData의 additionalPrice를 더한 값이 ProductItem의 가격이 된다.")
     void calcSalePriceWithOption() {
         List<ProductItem> actual = sut.createBy(List.of(PRODUCT_ITEM_DATA_WITH_OPTIONCOMB), PRODUCT_WITH_OPTION);
         assertThat(actual.get(0).getSalePrice()).isEqualTo(PRODUCT_WITH_OPTION.getPrice() + OPTION_COMBINATION_DATA.getAdditionalPrice());
     }
 
-    @Test
-    @DisplayName("옵션을 사용할 경우, OptionCombinationData의 optionQuantity가 ProductItem의 quantity가 된다.")
-    void setQuantityWithOption() {
-        List<ProductItem> actual = sut.createBy(List.of(PRODUCT_ITEM_DATA_WITH_OPTIONCOMB), PRODUCT_WITH_OPTION);
-        assertThat(actual.get(0).getQuantity()).isEqualTo(OPTION_COMBINATION_DATA.getOptionCombQuantity());
-    }
-
-    private static OptionCombinationData getOptionCombinationData(int additionalPrice, int optionCombQuantity) {
-        return new OptionCombinationData(List.of("S", "red"), additionalPrice, optionCombQuantity);
+    private static OptionCombinationData getOptionCombinationData(int additionalPrice) {
+        return new OptionCombinationData(List.of("S", "red"), additionalPrice);
     }
 
     private static List<Option> getOptions() {
@@ -64,7 +49,7 @@ class ProductItemsFactoryTest {
         );
     }
 
-    private static Product getProduct(int price, boolean optionUsable, List<Option> options) {
-        return new Product(ANY_ID, "양말", "양말 사세요", price, optionUsable, options);
+    private static Product getProduct(int price, List<Option> options) {
+        return new Product(ANY_ID, "양말", "양말 사세요", price, options);
     }
 }

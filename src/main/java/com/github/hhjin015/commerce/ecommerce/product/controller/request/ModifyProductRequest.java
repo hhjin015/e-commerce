@@ -8,11 +8,10 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class ProductDto {
+public class ModifyProductRequest {
     private String name;
     private String description;
     private int price;
-
     @JsonProperty("options")
     private List<OptionDto> optionsDto;
 }

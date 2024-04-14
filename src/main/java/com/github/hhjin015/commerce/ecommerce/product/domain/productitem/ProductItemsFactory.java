@@ -11,23 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static java.util.Objects.nonNull;
+
 @Component
 @RequiredArgsConstructor
 public class ProductItemsFactory {
 
     private final OptionCombinationFactory optionCombinationFactory;
 
-    public List<ProductItem> createBy(List<ProductItemData> productItemDatas, Product product) {
+    public List<ProductItem> createBy(List<ProductItemData> productItemsData, Product product) {
         List<ProductItem> productItems = new ArrayList<>();
 
-        if (product.isOptionUsable()) {
-            for (ProductItemData data : productItemDatas) {
+        if (nonNull(product.getOptions())) {
+            for (ProductItemData data : productItemsData) {
                 OptionCombination optionComb = optionCombinationFactory.createBy(data.getOptionCombinationData());
                 productItems.add(
                         new ProductItem(
                                 ProductItemId.of(UUID.randomUUID().toString()),
                                 product,
-                                data.getOptionCombinationData().getOptionCombQuantity(),
+                                data.getQuantity(),
                                 optionComb
                         )
                 );
@@ -37,7 +39,7 @@ public class ProductItemsFactory {
                     new ProductItem(
                             ProductItemId.of(UUID.randomUUID().toString()),
                             product,
-                            productItemDatas.get(0).getQuantity(),
+                            productItemsData.get(0).getQuantity(),
                             null
                     )
             );

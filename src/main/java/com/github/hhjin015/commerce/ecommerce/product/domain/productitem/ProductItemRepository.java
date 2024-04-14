@@ -8,7 +8,9 @@ public interface ProductItemRepository {
 
     void save(ProductItem productItem);
 
-    List<ProductItem> findAllBy(ProductId productId);
+    void deleteBy(ProductItemId id);
+
+    List<ProductItem> findAllBy(ProductId id);
 
     ProductItem findBy(ProductItemId id);
 }

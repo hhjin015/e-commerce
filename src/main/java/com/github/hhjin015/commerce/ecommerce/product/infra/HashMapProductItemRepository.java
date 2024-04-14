@@ -22,6 +22,11 @@ public class HashMapProductItemRepository implements ProductItemRepository {
     }
 
     @Override
+    public void deleteBy(ProductItemId id) {
+        storage.remove(id);
+    }
+
+    @Override
     public List<ProductItem> findAllBy(ProductId productId) {
         List<ProductItem> productItems = new ArrayList<>();
 

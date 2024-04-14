@@ -23,9 +23,9 @@ public class CreateProductService {
     private final ProductItemsFactory productItemsFactory;
     private final ProductItemRepository productItemRepository;
 
-    public ProductId create(ProductData productData, List<ProductItemData> productItemDatas) {
+    public ProductId create(ProductData productData, List<ProductItemData> productItemsData) {
         Product product = productFactory.createBy(productData);
-        List<ProductItem> productItems = productItemsFactory.createBy(productItemDatas, product);
+        List<ProductItem> productItems = productItemsFactory.createBy(productItemsData, product);
 
         for (ProductItem productItem : productItems) {
             productItemRepository.save(productItem);

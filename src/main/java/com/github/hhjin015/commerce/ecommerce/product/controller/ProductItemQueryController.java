@@ -5,6 +5,7 @@ import com.github.hhjin015.commerce.ecommerce.product.controller.response.Produc
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
 import com.github.hhjin015.commerce.ecommerce.product.service.ProductItemQueryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ public class ProductItemQueryController {
 
         ProductItemsResponse productItemsResponse = getProductItemsResponse(productItems);
 
-        return ResponseEntity.ok(productItemsResponse);
+        return new ResponseEntity<>(productItemsResponse, HttpStatus.OK);
     }
 
 
@@ -34,7 +35,7 @@ public class ProductItemQueryController {
     public ResponseEntity<ProductItem> findBy(@PathVariable String id) {
         ProductItem productItem = productItemQueryService.findBy(id);
 
-        return ResponseEntity.ok(productItem);
+        return new ResponseEntity<>(productItem, HttpStatus.OK);
     }
 
     private static ProductItemsResponse getProductItemsResponse(List<ProductItem> productItems) {

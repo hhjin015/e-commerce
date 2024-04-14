@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static java.util.Objects.nonNull;
+
 @Component
 @RequiredArgsConstructor
 public class ProductFactory {
@@ -20,10 +22,10 @@ public class ProductFactory {
     public Product createBy(ProductData productData) {
         List<Option> options = null;
 
-        if (productData.isOptionUsable()) {
+        if (nonNull(productData.getOptionsData())) {
             options = new ArrayList<>();
 
-            for (OptionData optionData : productData.getOptionDatas()) {
+            for (OptionData optionData : productData.getOptionsData()) {
                 options.add(optionFactory.createBy(optionData));
             }
         }
@@ -32,7 +34,6 @@ public class ProductFactory {
                 productData.getName(),
                 productData.getDescription(),
                 productData.getPrice(),
-                productData.isOptionUsable(),
                 options
         );
     }
