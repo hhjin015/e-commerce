@@ -1,0 +1,75 @@
+### productId로 product의 모든 정보를 수정할 경우
+PATCH http://localhost:8080/products/productId HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "새로운 product",
+  "description": "새로운 product 팝니다.",
+  "price": 10000,
+  "options": [
+    {
+      "name": "color",
+      "values": [
+        "red",
+        "blue"
+      ]
+    },
+    {
+      "name": "weight",
+      "values": [
+        "100g",
+        "200g"
+      ]
+    }
+  ]
+}
+
+### productId로 product의 이름만 수정하는 경우
+PATCH http://localhost:8080/products/productId HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "새로운 product"
+}
+
+
+### productId로 product의 설명만 수정하는 경우
+PATCH http://localhost:8080/products/productId HTTP/1.1
+Content-Type: application/json
+
+{
+  "description": "새로운 product 팝니다."
+}
+
+
+### productId로 product의 가격만 수정하는 경우
+PATCH http://localhost:8080/products/productId HTTP/1.1
+Content-Type: application/json
+
+{
+  "price": 10000
+}
+
+
+### productId로 product의 옵션만 수정하는 경우
+PATCH http://localhost:8080/products/productId HTTP/1.1
+Content-Type: application/json
+
+{
+  "options": [
+    {
+      "name": "color",
+      "values": [
+        "red",
+        "blue"
+      ]
+    },
+    {
+      "name": "weight",
+      "values": [
+        "100g",
+        "200g"
+      ]
+    }
+  ]
+}

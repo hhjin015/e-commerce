@@ -21,11 +21,11 @@ public class ProductCommandController {
 
     @PatchMapping("/products/{id}")
     public ResponseEntity<Void> modifyProduct(@PathVariable String id, @RequestBody ModifyProductRequest request) {
-        productCommandService.modifyProduct(id, parseUpdateProductRequestToDto(request));
+        productCommandService.modifyProduct(id, parseUpdateProductRequestToData(request));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    private ProductData parseUpdateProductRequestToDto(ModifyProductRequest request) {
+    private ProductData parseUpdateProductRequestToData(ModifyProductRequest request) {
         return new ProductData(
                 request.getName(),
                 request.getDescription(),

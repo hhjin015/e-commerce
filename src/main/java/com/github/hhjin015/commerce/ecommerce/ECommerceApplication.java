@@ -25,45 +25,42 @@ public class ECommerceApplication {
 
     @Bean
     ApplicationRunner init(HashMapProductRepository productRepository, HashMapProductItemRepository productItemRepository) {
-        return new ApplicationRunner() {
-            @Override
-            public void run(ApplicationArguments args) throws Exception {
-                Product product = new Product(
-                        ProductId.of("product"),
-                        "양말",
-                        "양말 사세요",
-                        1000,
-                        List.of(Option.of("size", List.of("S", "M", "L")))
-                );
-                productRepository.save(product);
+        return args -> {
+            Product product = new Product(
+                    ProductId.of("productId"),
+                    "양말",
+                    "양말 사세요",
+                    1000,
+                    List.of(Option.of("size", List.of("S", "M", "L")))
+            );
+            productRepository.save(product);
 
-                productItemRepository.save(
-                        new ProductItem(
-                                ProductItemId.of("productItem1"),
-                                product,
-                                10,
-                                OptionCombination.of(List.of("S"),0)
-                        )
-                );
+            productItemRepository.save(
+                    new ProductItem(
+                            ProductItemId.of("productItem1"),
+                            product,
+                            10,
+                            OptionCombination.of(List.of("S"), 0)
+                    )
+            );
 
-                productItemRepository.save(
-                        new ProductItem(
-                                ProductItemId.of("productItem2"),
-                                product,
-                                20,
-                                OptionCombination.of(List.of("M"),1000)
-                        )
-                );
+            productItemRepository.save(
+                    new ProductItem(
+                            ProductItemId.of("productItem2"),
+                            product,
+                            20,
+                            OptionCombination.of(List.of("M"), 1000)
+                    )
+            );
 
-                productItemRepository.save(
-                        new ProductItem(
-                                ProductItemId.of("productItem3"),
-                                product,
-                                30,
-                                OptionCombination.of(List.of("L"),2000)
-                        )
-                );
-            }
+            productItemRepository.save(
+                    new ProductItem(
+                            ProductItemId.of("productItem3"),
+                            product,
+                            30,
+                            OptionCombination.of(List.of("L"), 2000)
+                    )
+            );
         };
     }
 }

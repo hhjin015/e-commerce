@@ -11,6 +11,6 @@ public class ModifyProductItemRequest {
     private String operation;
     private List<String> removeIds;
     private String productId;
-    private List<ProductItemDto> createPI;
-    private List<ModifyProductItemDto> modifyPI;
+    private List<ProductItemDto> createPIs;
+    private List<ModifyProductItemDto> modifyPIs;
 }

@@ -54,7 +54,7 @@ ProductItemCommandService {
     public void modifyProductItem(List<ModifyProductItemData> dataList) {
         for (ModifyProductItemData data : dataList) {
             ProductItem productItem = productItemRepository.findBy(ProductItemId.of(data.getProductItemId()));
-            productItem.updateQuantity(data.getQuantity());
+            productItem.update(data.getQuantity(), data.getAdditionalPrice());
 
             productItemRepository.save(productItem);
         }

@@ -5,7 +5,6 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactor
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepository;
-import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
 import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductData;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ import static java.util.Objects.isNull;
 public class ProductCommandService {
 
     private final ProductRepository productRepository;
-    private final ProductItemRepository productItemRepository;
     private final OptionFactory optionFactory;
 
     public void modifyProduct(String id, ProductData productData) {

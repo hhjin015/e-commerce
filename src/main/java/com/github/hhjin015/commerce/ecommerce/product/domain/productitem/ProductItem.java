@@ -13,7 +13,7 @@ public class ProductItem {
     private final Product product;
     private int salePrice;
     private int quantity;
-    private final OptionCombination optionCombination;
+    private OptionCombination optionCombination;
     private ProductItemSalesStatus salesStatus;
 
     public ProductItem(ProductItemId productItemId, Product product, int quantity, OptionCombination optionCombination) {
@@ -25,8 +25,11 @@ public class ProductItem {
         updateSalePrice();
     }
 
-    public void updateQuantity(int amount) {
-        this.quantity = amount;
+    public void update(int quantity, int additionalPrice) {
+        this.quantity = quantity;
+        this.optionCombination = OptionCombination.of(this.optionCombination.getOptionNames(), additionalPrice);
+        changeSalesStatus();
+        updateSalePrice();
     }
 
     public void updateSalePrice() {
@@ -37,14 +40,15 @@ public class ProductItem {
     public void decreaseQuantity(int amount) {
         checkQuantity(amount);
         this.quantity -= amount;
+        changeSalesStatus();
+    }
+
+    private void changeSalesStatus() {
+        if (this.quantity == 0) this.salesStatus = ProductItemSalesStatus.SOLD_OUT;
+        else this.salesStatus = ProductItemSalesStatus.ON_SALE;
     }
 
     private void checkQuantity(int amount) {
         if (this.quantity - amount < 0) throw new IllegalStateException("재고 부족");
-        else if (this.quantity - amount == 0) changeSalesStatusSoldOut();
-    }
-
-    private void changeSalesStatusSoldOut() {
-        this.salesStatus = ProductItemSalesStatus.SOLD_OUT;
     }
 }

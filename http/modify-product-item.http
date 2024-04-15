@@ -1,0 +1,43 @@
+### productItem을 추가하는 경우
+PATCH http://localhost:8080/product-items HTTP/1.1
+Content-Type: application/json
+
+{
+  "operation": "ADD",
+  "productId": "productId",
+  "createPIs": [
+    {
+      "quantity": 1000,
+      "optionCombination": {
+        "optionNames": ["100g", "small"],
+        "additionalPrice": 100
+      }
+    }
+  ]
+}
+
+### productItem을 삭제하는 경우
+PATCH http://localhost:8080/product-items HTTP/1.1
+Content-Type: application/json
+
+{
+  "operation": "REMOVE",
+  "removeIds": ["productItem1", "productItem2"]
+}
+
+
+### productItem을 수정하는 경우
+PATCH http://localhost:8080/product-items HTTP/1.1
+Content-Type: application/json
+
+{
+  "operation": "MODIFY",
+  "modifyPIs": [
+    {
+      "productItemId": "productItem3",
+      "quantity": 200,
+      "additionalPrice": 5000
+    }
+  ]
+}
+

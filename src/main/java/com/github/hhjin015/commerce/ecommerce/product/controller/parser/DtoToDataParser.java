@@ -57,7 +57,7 @@ public class DtoToDataParser {
         List<ModifyProductItemData> list = new ArrayList<>();
 
         for (ModifyProductItemDto dto : dtoList) {
-            list.add(new ModifyProductItemData(dto.getProductItemId(), dto.getQuantity()));
+            list.add(new ModifyProductItemData(dto.getProductItemId(), dto.getQuantity(), dto.getAdditionalPrice()));
         }
 
         return list;

@@ -47,14 +47,14 @@ public class ProductItemCommandController {
 
         switch (op) {
             case "ADD" -> {
-                List<ProductItemData> data = parser.parseProductItemDtoToData(request.getCreatePI());
+                List<ProductItemData> data = parser.parseProductItemDtoToData(request.getCreatePIs());
                 productItemCommandService.addProductItem(request.getProductId(), data);
             }
             case "REMOVE" -> {
                 productItemCommandService.deleteProductItem(request.getRemoveIds());
             }
             case "MODIFY" -> {
-                List<ModifyProductItemData> data = parser.parseModifyProductItemDtoToData(request.getModifyPI());
+                List<ModifyProductItemData> data = parser.parseModifyProductItemDtoToData(request.getModifyPIs());
                 productItemCommandService.modifyProductItem(data);
             }
         }

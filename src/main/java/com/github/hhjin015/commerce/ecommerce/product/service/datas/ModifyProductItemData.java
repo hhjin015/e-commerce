@@ -8,4 +8,5 @@ import lombok.Getter;
 public class ModifyProductItemData {
     private String productItemId;
     private int quantity;
+    private int additionalPrice;
 }

@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class ModifyProductItemDto {
     private String productItemId;
     private int quantity;
+    private int additionalPrice;
 }
