@@ -7,7 +7,6 @@ Content-Type: application/json
     "name": "양말",
     "description": "양말 사세요",
     "price": 1000,
-    "optionUsable": false,
     "options": null
   },
   "productItems": [
@@ -27,7 +26,6 @@ Content-Type: application/json
     "name": "양말",
     "description": "양말 사세요",
     "price": 1000,
-    "optionUsable": true,
     "options": [
       {
         "name": "사이즈",

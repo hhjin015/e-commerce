@@ -1,8 +1,8 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionCombinationData;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionCombinationData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.Option;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombinationFactory;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;

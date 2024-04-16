@@ -27,19 +27,19 @@ public class ProductItem {
 
     public void update(int quantity, int additionalPrice) {
         this.quantity = quantity;
-        this.optionCombination = OptionCombination.of(this.optionCombination.getOptionNames(), additionalPrice);
+        optionCombination = OptionCombination.of(optionCombination.getOptionNames(), additionalPrice);
         changeSalesStatus();
         updateSalePrice();
     }
 
     public void updateSalePrice() {
-        if (isNull(this.optionCombination)) this.salePrice = this.product.getPrice();
-        else this.salePrice = this.optionCombination.getAdditionalPrice() + this.product.getPrice();
+        if (isNull(optionCombination)) salePrice = product.getPrice();
+        else salePrice = optionCombination.getAdditionalPrice() + product.getPrice();
     }
 
     public void decreaseQuantity(int amount) {
         checkQuantity(amount);
-        this.quantity -= amount;
+        quantity -= amount;
         changeSalesStatus();
     }
 

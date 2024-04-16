@@ -1,7 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.product;
 
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductData;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

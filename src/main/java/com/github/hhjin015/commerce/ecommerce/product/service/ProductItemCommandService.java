@@ -7,8 +7,8 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.Product
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemsFactory;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.ModifyProductItemData;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ModifyProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

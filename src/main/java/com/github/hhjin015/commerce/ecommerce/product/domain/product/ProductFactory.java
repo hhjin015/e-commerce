@@ -2,8 +2,8 @@ package com.github.hhjin015.commerce.ecommerce.product.domain.product;
 
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.Option;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactory;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

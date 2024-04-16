@@ -1,4 +1,4 @@
-package com.github.hhjin015.commerce.ecommerce.product.service.datas;
+package com.github.hhjin015.commerce.ecommerce.product.service.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

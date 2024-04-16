@@ -3,7 +3,7 @@ package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombination;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombinationFactory;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

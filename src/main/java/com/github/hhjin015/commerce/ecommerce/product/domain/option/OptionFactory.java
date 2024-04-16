@@ -1,6 +1,6 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.option;
 
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
 import org.springframework.stereotype.Component;
 
 @Component

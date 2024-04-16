@@ -5,8 +5,8 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactor
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepository;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.OptionData;
-import com.github.hhjin015.commerce.ecommerce.product.service.datas.ProductData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ModifyProductData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +22,14 @@ public class ProductCommandService {
     private final ProductRepository productRepository;
     private final OptionFactory optionFactory;
 
-    public void modifyProduct(String id, ProductData productData) {
+    public void modifyProduct(String id, ModifyProductData data) {
         Product product = productRepository.findBy(ProductId.of(id));
 
         product.update(
-                isNull(productData.getName()) ? product.getName() : productData.getName(),
-                isNull(productData.getDescription()) ? product.getDescription() : productData.getDescription(),
-                productData.getPrice() == 0 ? product.getPrice() : productData.getPrice(),
-                isNull(productData.getOptionsData()) ? product.getOptions() : parseOptionData(productData.getOptionsData())
+                isNull(data.getName()) ? product.getName() : data.getName(),
+                isNull(data.getDescription()) ? product.getDescription() : data.getDescription(),
+                data.getPrice() == 0 ? product.getPrice() : data.getPrice(),
+                isNull(data.getOptionsData()) ? product.getOptions() : parseOptionData(data.getOptionsData())
         );
 
         productRepository.save(product);

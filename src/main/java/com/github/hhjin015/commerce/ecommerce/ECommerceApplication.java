@@ -8,7 +8,6 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.Product
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemId;
 import com.github.hhjin015.commerce.ecommerce.product.infra.HashMapProductItemRepository;
 import com.github.hhjin015.commerce.ecommerce.product.infra.HashMapProductRepository;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
