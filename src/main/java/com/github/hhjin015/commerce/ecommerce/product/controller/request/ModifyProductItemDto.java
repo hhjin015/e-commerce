@@ -1,6 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.controller.request;
 
 import com.github.hhjin015.commerce.ecommerce.product.service.data.ModifyProductItemData;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class ModifyProductItemDto {
 
     private String productItemId;
-    @NotNull
+    @NotNull @Min(0)
     private Integer quantity;
     @NotNull
     private Integer additionalPrice;

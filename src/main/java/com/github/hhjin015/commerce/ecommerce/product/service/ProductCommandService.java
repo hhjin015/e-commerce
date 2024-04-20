@@ -5,6 +5,7 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactor
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepository;
+import com.github.hhjin015.commerce.ecommerce.product.mapper.StatusMapper;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.ModifyProductData;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,8 @@ public class ProductCommandService {
                 isNull(data.getName()) ? product.getName() : data.getName(),
                 isNull(data.getDescription()) ? product.getDescription() : data.getDescription(),
                 data.getPrice() == 0 ? product.getPrice() : data.getPrice(),
-                isNull(data.getOptionsData()) ? product.getOptions() : parseOptionData(data.getOptionsData())
+                isNull(data.getOptionsData()) ? product.getOptions() : parseOptionData(data.getOptionsData()),
+                isNull(data.getStatus()) ? product.getSalesStatus() : StatusMapper.INSTANCE.toProductSalesStatus(data.getStatus())
         );
 
         productRepository.save(product);
@@ -38,7 +40,7 @@ public class ProductCommandService {
     private List<Option> parseOptionData(List<OptionData> optionData) {
         List<Option> options = new ArrayList<>();
 
-        for(OptionData op : optionData) {
+        for (OptionData op : optionData) {
             options.add(optionFactory.createBy(op));
         }
 

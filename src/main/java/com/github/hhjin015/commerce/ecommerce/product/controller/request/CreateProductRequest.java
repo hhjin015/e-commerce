@@ -1,6 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.CreateProductData;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,12 +19,12 @@ public class CreateProductRequest {
     @JsonProperty("productItems")
     private List<ProductItemDto> productItemsDto;
 
-    public List<ProductItemData> toData() {
+    public CreateProductData toData() {
         List<ProductItemData> list = new ArrayList<>();
         for (ProductItemDto dto : productItemsDto) {
             list.add(dto.toData());
         }
 
-        return list;
+        return new CreateProductData(productDto.toData(), list);
     }
 }

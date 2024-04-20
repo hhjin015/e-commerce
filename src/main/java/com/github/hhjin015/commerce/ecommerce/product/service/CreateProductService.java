@@ -7,8 +7,7 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepo
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemsFactory;
-import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductData;
-import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.CreateProductData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +22,9 @@ public class CreateProductService {
     private final ProductItemsFactory productItemsFactory;
     private final ProductItemRepository productItemRepository;
 
-    public ProductId create(ProductData productData, List<ProductItemData> productItemsData) {
-        Product product = productFactory.createBy(productData);
-        List<ProductItem> productItems = productItemsFactory.createBy(productItemsData, product);
+    public ProductId create(CreateProductData data) {
+        Product product = productFactory.createBy(data.getProductData());
+        List<ProductItem> productItems = productItemsFactory.createBy(data.getProductItemsData(), product);
 
         for (ProductItem productItem : productItems) {
             productItemRepository.save(productItem);

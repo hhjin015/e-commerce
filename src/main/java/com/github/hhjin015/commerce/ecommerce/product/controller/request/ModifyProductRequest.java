@@ -20,6 +20,7 @@ public class ModifyProductRequest {
     private int price;
     @JsonProperty("options")
     private List<OptionDto> optionsDto;
+    private String status;
 
     public ModifyProductData toData() {
         List<OptionData> list = null;
@@ -30,6 +31,6 @@ public class ModifyProductRequest {
                 list.add(dto.toData());
             }
         }
-        return new ModifyProductData(name, description, price, list);
+        return new ModifyProductData(name, description, price, list, status);
     }
 }

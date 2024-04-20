@@ -6,13 +6,11 @@ Content-Type: application/json
   "product": {
     "name": "양말",
     "description": "양말 사세요",
-    "price": 1000,
-    "options": null
+    "price": 1000
   },
   "productItems": [
     {
-      "quantity": 10,
-      "optionCombinations": null
+      "quantity": 10
     }
   ]
 }
@@ -44,8 +42,7 @@ Content-Type: application/json
         "optionNames": [
           "S"
         ],
-        "additionalPrice": 0,
-        "optionCombQuantity": 10
+        "additionalPrice": 0
       }
     },
     {
@@ -54,8 +51,7 @@ Content-Type: application/json
         "optionNames": [
           "M"
         ],
-        "additionalPrice": 1000,
-        "optionCombQuantity": 10
+        "additionalPrice": 1000
       }
     },
     {
@@ -64,8 +60,7 @@ Content-Type: application/json
         "optionNames": [
           "L"
         ],
-        "additionalPrice": 2000,
-        "optionCombQuantity": 10
+        "additionalPrice": 2000
       }
     }
   ]

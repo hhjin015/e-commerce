@@ -19,7 +19,7 @@ public class CreateProductController {
 
     @PostMapping("/products")
     public ResponseEntity<ProductIdResponse> createProduct(@RequestBody CreateProductRequest request) {
-        ProductId productId = createProductService.create(request.getProductDto().toData(), request.toData());
+        ProductId productId = createProductService.create(request.toData());
 
         return new ResponseEntity<>(ProductIdResponse.of(productId.getValue()), HttpStatus.CREATED);
     }

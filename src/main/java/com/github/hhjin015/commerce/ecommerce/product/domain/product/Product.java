@@ -15,7 +15,7 @@ public class Product {
     private String description;
     private int price;
     private List<Option> options;
-    private final ProductSalesStatus salesStatus;
+    private ProductSalesStatus salesStatus;
 
     public Product(ProductId id, String name, String description, int price, List<Option> options) {
         this.id = id;
@@ -26,11 +26,12 @@ public class Product {
         this.salesStatus = ProductSalesStatus.PENDING;
     }
 
-    public void update(String name, String description, int price, List<Option> options) {
+    public void update(String name, String description, int price, List<Option> options, ProductSalesStatus status) {
         this.name = name;
         this.description = description;
         updatePrice(price);
         this.options = options;
+        this.salesStatus = status;
     }
 
     private void updatePrice(int price) {

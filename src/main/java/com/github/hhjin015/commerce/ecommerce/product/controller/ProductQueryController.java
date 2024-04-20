@@ -1,5 +1,6 @@
 package com.github.hhjin015.commerce.ecommerce.product.controller;
 
+import com.github.hhjin015.commerce.ecommerce.product.controller.response.ProductResponse;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.service.ProductQueryService;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,21 @@ public class ProductQueryController {
     private final ProductQueryService productQueryService;
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> findBy(@PathVariable String id) {
-        Product product = productQueryService.findBy(id);
+    public ResponseEntity<ProductResponse> findBy(@PathVariable String id) {
+        Product p = productQueryService.findBy(id);
+        ProductResponse productResponse = getProductResponse(p);
 
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
+    }
+
+    private static ProductResponse getProductResponse(Product p) {
+        return new ProductResponse(
+                p.getId().getValue(),
+                p.getName(),
+                p.getDescription(),
+                p.getPrice(),
+                p.getOptions(),
+                p.getSalesStatus()
+        );
     }
 }

@@ -12,4 +12,5 @@ public class ModifyProductData {
     private String description;
     private int price;
     private List<OptionData> optionsData;
+    private String status;
 }

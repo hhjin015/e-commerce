@@ -25,9 +25,9 @@ public class ProductItem {
         updateSalePrice();
     }
 
-    public void update(int quantity, int additionalPrice) {
+    public void update(int quantity, OptionCombination optionCombination) {
         this.quantity = quantity;
-        optionCombination = OptionCombination.of(optionCombination.getOptionNames(), additionalPrice);
+        this.optionCombination = optionCombination;
         changeSalesStatus();
         updateSalePrice();
     }
@@ -49,6 +49,6 @@ public class ProductItem {
     }
 
     private void checkQuantity(int amount) {
-        if (this.quantity - amount < 0) throw new IllegalStateException("재고 부족");
+        if (this.quantity - amount < 0) throw new IllegalStateException("재고가 부족합니다.");
     }
 }

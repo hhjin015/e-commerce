@@ -2,12 +2,11 @@ package com.github.hhjin015.commerce.ecommerce.product.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public class ProductItemsResponse {
-    private ProductResponse product;
-    private List<ProductItemResponse> productItems;
+public class ResponseMessage {
+    private String message;
+    private HttpStatus status;
 }

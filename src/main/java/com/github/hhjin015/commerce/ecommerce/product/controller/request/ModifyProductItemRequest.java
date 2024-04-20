@@ -22,7 +22,7 @@ public class ModifyProductItemRequest {
     @Valid
     private List<ModifyProductItemDto> modifyPIs;
 
-    public List<ProductItemData> productItemToData() {
+    public List<ProductItemData> productItemDtoToData() {
         List<ProductItemData> list = new ArrayList<>();
 
         for(ProductItemDto dto : createPIs) {
@@ -32,7 +32,7 @@ public class ModifyProductItemRequest {
         return list;
     }
 
-    public List<ModifyProductItemData> modifyProductItemToData() {
+    public List<ModifyProductItemData> modifyProductItemDtoToData() {
         List<ModifyProductItemData> list = new ArrayList<>();
 
         for(ModifyProductItemDto dto : modifyPIs) {

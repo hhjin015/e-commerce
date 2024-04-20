@@ -2,6 +2,8 @@ package com.github.hhjin015.commerce.ecommerce.product.controller;
 
 import com.github.hhjin015.commerce.ecommerce.product.controller.response.ProductItemResponse;
 import com.github.hhjin015.commerce.ecommerce.product.controller.response.ProductItemsResponse;
+import com.github.hhjin015.commerce.ecommerce.product.controller.response.ProductResponse;
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
 import com.github.hhjin015.commerce.ecommerce.product.service.ProductItemQueryService;
 import lombok.RequiredArgsConstructor;
@@ -24,34 +26,56 @@ public class ProductItemQueryController {
     @GetMapping("/product-items")
     public ResponseEntity<ProductItemsResponse> findAllBy(@RequestParam("productId") String productId) {
         List<ProductItem> productItems = productItemQueryService.findAllBy(productId);
-
-        ProductItemsResponse productItemsResponse = getProductItemsResponse(productItems);
+        ProductResponse productResponse = getProductResponse(productItems.get(0).getProduct());
+        ProductItemsResponse productItemsResponse = getProductItemsResponse(productResponse, productItems);
 
         return new ResponseEntity<>(productItemsResponse, HttpStatus.OK);
     }
 
 
     @GetMapping("/product-items/{id}")
-    public ResponseEntity<ProductItem> findBy(@PathVariable String id) {
+    public ResponseEntity<ProductItemResponse> findBy(@PathVariable String id) {
         ProductItem productItem = productItemQueryService.findBy(id);
+        ProductItemResponse productItemResponse = getProductItemResponse(productItem);
 
-        return new ResponseEntity<>(productItem, HttpStatus.OK);
+        return new ResponseEntity<>(productItemResponse, HttpStatus.OK);
     }
 
-    private static ProductItemsResponse getProductItemsResponse(List<ProductItem> productItems) {
+    private static ProductItemsResponse getProductItemsResponse(ProductResponse productResponse, List<ProductItem> productItems) {
         List<ProductItemResponse> productItemResponses = new ArrayList<>();
-        for (ProductItem productItem : productItems) {
+        for (ProductItem pi : productItems) {
             productItemResponses.add(
                     new ProductItemResponse(
-                            productItem.getProductItemId().getValue(),
-                            productItem.getSalePrice(),
-                            productItem.getQuantity(),
-                            productItem.getOptionCombination(),
-                            productItem.getSalesStatus()
+                            pi.getProductItemId().getValue(),
+                            pi.getSalePrice(),
+                            pi.getQuantity(),
+                            pi.getOptionCombination(),
+                            pi.getSalesStatus()
                     )
             );
         }
 
-        return new ProductItemsResponse(productItems.get(0).getProduct(), productItemResponses);
+        return new ProductItemsResponse(productResponse, productItemResponses);
+    }
+
+    private static ProductResponse getProductResponse(Product p) {
+        return new ProductResponse(
+                p.getId().getValue(),
+                p.getName(),
+                p.getDescription(),
+                p.getPrice(),
+                p.getOptions(),
+                p.getSalesStatus()
+        );
+    }
+
+    private static ProductItemResponse getProductItemResponse(ProductItem pi) {
+        return new ProductItemResponse(
+                pi.getProductItemId().getValue(),
+                pi.getSalePrice(),
+                pi.getQuantity(),
+                pi.getOptionCombination(),
+                pi.getSalesStatus()
+        );
     }
 }

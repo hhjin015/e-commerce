@@ -6,10 +6,9 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.Product
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.Objects.isNull;
 
 @Repository
 public class HashMapProductItemRepository implements ProductItemRepository {
@@ -23,7 +22,8 @@ public class HashMapProductItemRepository implements ProductItemRepository {
 
     @Override
     public void deleteBy(ProductItemId id) {
-        storage.remove(id);
+        if(isNull(storage.get(id))) throw new NoSuchElementException("id가 존재하지 않습니다.");
+        else storage.remove(id);
     }
 
     @Override
@@ -43,6 +43,7 @@ public class HashMapProductItemRepository implements ProductItemRepository {
 
     @Override
     public ProductItem findBy(ProductItemId id) {
+        if(isNull(storage.get(id))) throw new NoSuchElementException("id가 존재하지 않습니다.");
         return storage.get(id);
     }
 }
