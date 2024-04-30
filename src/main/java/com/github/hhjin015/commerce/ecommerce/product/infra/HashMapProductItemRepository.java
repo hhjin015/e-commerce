@@ -23,7 +23,7 @@ public class HashMapProductItemRepository implements ProductItemRepository {
     @Override
     public void deleteBy(ProductItemId id) {
         if(isNull(storage.get(id))) throw new NoSuchElementException("id가 존재하지 않습니다.");
-        else storage.remove(id);
+        storage.remove(id);
     }
 
     @Override
