@@ -12,7 +12,7 @@ class OptionCombinationFactoryTest {
 
     @Test
     void createOptionCombination() {
-        OptionCombinationData data = new OptionCombinationData(List.of("S,빨강"), 1000, 10);
+        OptionCombinationData data = new OptionCombinationData(List.of("S,빨강"), 1000);
         OptionCombination actual = sut.createBy(data);
 
         Assertions.assertThat(actual).isNotNull();

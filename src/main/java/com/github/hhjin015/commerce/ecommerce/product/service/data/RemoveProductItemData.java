@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class CreateProductData {
-    private ProductData productData;
-    private ProductItemsData productItemsData;
+public class RemoveProductItemData {
+    private String id;
 }

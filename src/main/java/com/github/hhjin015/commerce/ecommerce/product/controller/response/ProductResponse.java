@@ -16,4 +16,5 @@ public class ProductResponse {
     private int price;
     private List<Option> options;
     private ProductSalesStatus salesStatus;
+    private List<ProductItemResponse> productItems;
 }

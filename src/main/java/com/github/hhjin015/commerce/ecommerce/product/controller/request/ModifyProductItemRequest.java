@@ -1,44 +1,66 @@
 package com.github.hhjin015.commerce.ecommerce.product.controller.request;
 
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.ModifyProductItemData;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.RemoveProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.UpdateProductItemData;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Getter
 @NoArgsConstructor
 public class ModifyProductItemRequest {
-
-    @NotEmpty
-    private String operation;
-    private List<String> removeIds;
-    private String productId;
-    private List<ProductItemDto> createPIs;
+    private List<CreateProductItemDto> add;
     @Valid
-    private List<ModifyProductItemDto> modifyPIs;
+    private List<UpdateProductItemDto> update;
+    private List<RemoveProductItemDto> remove;
 
-    public List<ProductItemData> productItemDtoToData() {
-        List<ProductItemData> list = new ArrayList<>();
+    public ModifyProductItemData toData(Product product) {
+        List<ProductItemData> addData = getAddData();
 
-        for(ProductItemDto dto : createPIs) {
-            list.add(dto.toData());
-        }
+        List<UpdateProductItemData> updateData = getUpdateData();
 
-        return list;
+        List<RemoveProductItemData> removeData = getRemoveData();
+
+        return new ModifyProductItemData(product, addData, updateData, removeData);
     }
 
-    public List<ModifyProductItemData> modifyProductItemDtoToData() {
-        List<ModifyProductItemData> list = new ArrayList<>();
+    private List<ProductItemData> getAddData() {
+        if (isNull(add)) return null;
 
-        for(ModifyProductItemDto dto : modifyPIs) {
-            list.add(dto.toData());
+        List<ProductItemData> addData = new ArrayList<>();
+        for (CreateProductItemDto dto : add) {
+            addData.add(dto.toData());
+        }
+        return addData;
+    }
+
+    private List<UpdateProductItemData> getUpdateData() {
+        if (isNull(update)) return null;
+
+        List<UpdateProductItemData> updateData = new ArrayList<>();
+        for (UpdateProductItemDto dto : update) {
+            updateData.add(dto.toData());
         }
 
-        return list;
+        return updateData;
+    }
+
+    private List<RemoveProductItemData> getRemoveData() {
+        if (isNull(remove)) return null;
+
+        List<RemoveProductItemData> removeData = new ArrayList<>();
+        for (RemoveProductItemDto dto : remove) {
+            removeData.add(dto.toData());
+        }
+
+        return removeData;
     }
 }

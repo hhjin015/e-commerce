@@ -5,7 +5,6 @@ import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductFact
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepository;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
-import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemsFactory;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.CreateProductData;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +19,10 @@ public class CreateProductService {
     private final ProductFactory productFactory;
     private final ProductRepository productRepository;
     private final ProductItemsFactory productItemsFactory;
-    private final ProductItemRepository productItemRepository;
 
     public ProductId create(CreateProductData data) {
-        Product product = productFactory.createBy(data.getProductData());
-        List<ProductItem> productItems = productItemsFactory.createBy(data.getProductItemsData(), product);
-
-        for (ProductItem productItem : productItems) {
-            productItemRepository.save(productItem);
-        }
+        List<ProductItem> productItems = productItemsFactory.createBy(data.getProductItemsData());
+        Product product = productFactory.createBy(data.getProductData(), productItems);
 
         productRepository.save(product);
         return product.getId();

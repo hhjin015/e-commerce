@@ -13,7 +13,7 @@ import static java.util.Objects.nonNull;
 
 @Getter
 @NoArgsConstructor
-public class ProductDto {
+public class CreateProductDto {
     private String name;
     private String description;
     private int price;

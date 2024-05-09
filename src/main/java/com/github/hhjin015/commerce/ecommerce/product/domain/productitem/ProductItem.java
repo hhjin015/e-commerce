@@ -2,7 +2,6 @@ package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 
 import com.github.hhjin015.commerce.ecommerce.product.domain.ProductItemSalesStatus;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombination;
-import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
 import lombok.Getter;
 
 import static java.util.Objects.isNull;
@@ -10,31 +9,29 @@ import static java.util.Objects.isNull;
 @Getter
 public class ProductItem {
     private final ProductItemId productItemId;
-    private final Product product;
     private int salePrice;
     private int quantity;
     private OptionCombination optionCombination;
     private ProductItemSalesStatus salesStatus;
 
-    public ProductItem(ProductItemId productItemId, Product product, int quantity, OptionCombination optionCombination) {
+    public ProductItem(ProductItemId productItemId, int salePrice, int quantity, OptionCombination optionCombination) {
         this.productItemId = productItemId;
-        this.product = product;
+        this.salePrice = salePrice;
         this.quantity = quantity;
         this.optionCombination = optionCombination;
         this.salesStatus = ProductItemSalesStatus.ON_SALE;
-        updateSalePrice();
     }
 
-    public void update(int quantity, OptionCombination optionCombination) {
+    public void update(int quantity, OptionCombination optionCombination, int defaultPrice) {
         this.quantity = quantity;
         this.optionCombination = optionCombination;
+        updateSalePrice(defaultPrice);
         changeSalesStatus();
-        updateSalePrice();
     }
 
-    public void updateSalePrice() {
-        if (isNull(optionCombination)) salePrice = product.getPrice();
-        else salePrice = optionCombination.getAdditionalPrice() + product.getPrice();
+    public void updateSalePrice(int defaultPrice) {
+        if (isNull(optionCombination)) salePrice = defaultPrice;
+        else salePrice = optionCombination.getAdditionalPrice() + defaultPrice;
     }
 
     public void decreaseQuantity(int amount) {

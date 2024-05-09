@@ -9,7 +9,7 @@ import static java.util.Objects.isNull;
 
 @Getter
 @NoArgsConstructor
-public class ProductItemDto {
+public class CreateProductItemDto {
     private int quantity;
 
     @JsonProperty("optionCombination")

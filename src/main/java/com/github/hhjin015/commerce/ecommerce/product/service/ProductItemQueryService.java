@@ -1,25 +1,23 @@
 package com.github.hhjin015.commerce.ecommerce.product.service;
 
-import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepository;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemId;
-import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductItemQueryService {
 
-    private final ProductItemRepository productItemRepository;
+    private final ProductRepository productRepository;
 
-    public List<ProductItem> findAllBy(String id) {
-        return productItemRepository.findAllBy(ProductId.of(id));
-    }
-
-    public ProductItem findBy(String id) {
-        return productItemRepository.findBy(ProductItemId.of(id));
+    public ProductItem findProductItemBy(String id) {
+        Optional<ProductItem> optPi = productRepository.findProductItemBy(ProductItemId.of(id));
+        if(optPi.isEmpty()) throw new NoSuchElementException("해당 상품아이템이 존재하지 않습니다.");
+        return optPi.get();
     }
 }

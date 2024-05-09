@@ -1,8 +1,9 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.product;
 
-import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
-import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductData;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionFactory;
+import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductData;
+import com.github.hhjin015.commerce.ecommerce.product.domain.support.AbstractFactoryTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,38 +11,29 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProductFactoryTest {
+class ProductFactoryTest extends AbstractFactoryTest {
+
+    public static final ProductData PRODUCT_DATA_WITHOUT_OPTION = getProductData(null);
+    public static final ProductData PRODUCT_DATA_WITH_OPTION = getProductData(getOptionData());
+    public static final List<ProductItem> PRODUCT_ITEMS_WITHOUT_OPTION_COMBINATION = getProductItems(null);
+    public static final List<ProductItem> PRODUCT_ITEMS_WITH_OPTION_COMBINATION = getProductItems(getOptionCombination());
 
     ProductFactory sut = new ProductFactory(new OptionFactory());
 
     @Test
-    @DisplayName("ProductData의 optionUsable이 false면 Product의 Option은 생성되지 않는다.")
-    void createProductWithoutOption() {
-        ProductData dataWithoutOptionData = getProductData(false, null);
-        Product actual = sut.createBy(dataWithoutOptionData);
-
+    @DisplayName("옵션 없는 상품 생성")
+    void createProductWithOption() {
+        Product actual = sut.createBy(PRODUCT_DATA_WITHOUT_OPTION, PRODUCT_ITEMS_WITHOUT_OPTION_COMBINATION);
         assertThat(actual).isNotNull();
         assertThat(actual.getOptions()).isNull();
     }
 
     @Test
-    @DisplayName("ProductData의 optionUsable이 true면 Product의 Option이 생성된다.")
-    void createProductWithOption() {
-        ProductData dataWithOptionData = getProductData(true, getOptionData());
-        Product actual = sut.createBy(dataWithOptionData);
-
+    @DisplayName("옵션 있는 상품 생성")
+    void createProductWithoutOption() {
+        Product actual = sut.createBy(PRODUCT_DATA_WITH_OPTION, PRODUCT_ITEMS_WITH_OPTION_COMBINATION);
         assertThat(actual).isNotNull();
-        assertThat(actual.getOptions().size()).isEqualTo(2);
-    }
-
-    private static List<OptionData> getOptionData() {
-        return List.of(
-                new OptionData("size", List.of("s, m")),
-                new OptionData("color", List.of("red", "blue"))
-        );
-    }
-
-    private static ProductData getProductData(boolean optionUsable, List<OptionData> optionData) {
-        return new ProductData("양말", "양말 사세요", 1000, optionUsable, optionData);
+        assertThat(actual.getOptions()).isNotNull();
+        assertThat(actual.getProductItems()).isNotNull();
     }
 }

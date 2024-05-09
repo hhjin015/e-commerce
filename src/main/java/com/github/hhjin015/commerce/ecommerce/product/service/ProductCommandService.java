@@ -11,8 +11,10 @@ import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -24,26 +26,24 @@ public class ProductCommandService {
     private final OptionFactory optionFactory;
 
     public void modifyProduct(String id, ModifyProductData data) {
-        Product product = productRepository.findBy(ProductId.of(id));
+        Optional<Product> optP = productRepository.findBy(ProductId.of(id));
+        if (optP.isEmpty()) throw new NoSuchElementException("해당 상품이 존재하지 않습니다.");
 
-        product.update(
-                isNull(data.getName()) ? product.getName() : data.getName(),
-                isNull(data.getDescription()) ? product.getDescription() : data.getDescription(),
-                data.getPrice() == 0 ? product.getPrice() : data.getPrice(),
-                isNull(data.getOptionsData()) ? product.getOptions() : parseOptionData(data.getOptionsData()),
-                isNull(data.getStatus()) ? product.getSalesStatus() : StatusMapper.INSTANCE.toProductSalesStatus(data.getStatus())
+        Product p = optP.get();
+        p.update(
+                isNull(data.getName()) ? p.getName() : data.getName(),
+                isNull(data.getDescription()) ? p.getDescription() : data.getDescription(),
+                data.getPrice() == 0 ? p.getPrice() : data.getPrice(),
+                isNull(data.getOptionsData()) ? p.getOptions() : generateOption(data.getOptionsData()),
+                isNull(data.getStatus()) ? p.getSalesStatus() : StatusMapper.INSTANCE.toProductSalesStatus(data.getStatus())
         );
 
-        productRepository.save(product);
+        productRepository.save(p);
     }
 
-    private List<Option> parseOptionData(List<OptionData> optionData) {
-        List<Option> options = new ArrayList<>();
-
-        for (OptionData op : optionData) {
-            options.add(optionFactory.createBy(op));
-        }
-
-        return options;
+    private List<Option> generateOption(List<OptionData> optionData) {
+        return optionData.stream()
+                .map(optionFactory::createBy)
+                .collect(Collectors.toList());
     }
 }

@@ -2,16 +2,15 @@ package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombination;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombinationFactory;
-import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionCombinationData;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
+import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import static java.util.Objects.nonNull;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -19,32 +18,29 @@ public class ProductItemsFactory {
 
     private final OptionCombinationFactory optionCombinationFactory;
 
-    public List<ProductItem> createBy(List<ProductItemData> productItemsData, Product product) {
-        List<ProductItem> productItems = new ArrayList<>();
+    public List<ProductItem> createBy(ProductItemsData productItemsData) {
+        return productItemsData.getProductItemsData().stream()
+                .map(data -> createProductItem(productItemsData, data))
+                .collect(Collectors.toList());
+    }
 
-        if (nonNull(product.getOptions())) {
-            for (ProductItemData data : productItemsData) {
-                OptionCombination optionComb = optionCombinationFactory.createBy(data.getOptionCombinationData());
-                productItems.add(
-                        new ProductItem(
-                                ProductItemId.of(UUID.randomUUID().toString()),
-                                product,
-                                data.getQuantity(),
-                                optionComb
-                        )
-                );
-            }
-        } else {
-            productItems.add(
-                    new ProductItem(
-                            ProductItemId.of(UUID.randomUUID().toString()),
-                            product,
-                            productItemsData.get(0).getQuantity(),
-                            null
-                    )
-            );
-        }
+    private ProductItem createProductItem(ProductItemsData productItemsData, ProductItemData productItemData) {
+        String itemId = UUID.randomUUID().toString();
+        int price = calculateSalePrice(productItemsData.isOptionUsable(), productItemsData.getDefaultPrice(), productItemData.getOptionCombinationData());
+        int quantity = productItemData.getQuantity();
 
-        return productItems;
+        OptionCombination optionCombination = createOptionCombination(productItemsData.isOptionUsable(), productItemData);
+
+        return new ProductItem(ProductItemId.of(itemId), price, quantity, optionCombination);
+    }
+
+    private int calculateSalePrice(boolean isOptionUsable, int defaultPrice, OptionCombinationData optionCombinationData) {
+        if (!isOptionUsable) return defaultPrice;
+        else return defaultPrice + optionCombinationData.getAdditionalPrice();
+    }
+
+    private OptionCombination createOptionCombination(boolean isOptionUsable, ProductItemData data) {
+        if (!isOptionUsable) return null;
+        return optionCombinationFactory.createBy(data.getOptionCombinationData());
     }
 }

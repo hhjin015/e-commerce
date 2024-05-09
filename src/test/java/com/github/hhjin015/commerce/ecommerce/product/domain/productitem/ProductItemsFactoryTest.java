@@ -1,11 +1,7 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 
-import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
-import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionCombinationData;
-import com.github.hhjin015.commerce.ecommerce.product.service.data.ProductItemData;
-import com.github.hhjin015.commerce.ecommerce.product.domain.option.Option;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombinationFactory;
-import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
+import com.github.hhjin015.commerce.ecommerce.product.domain.support.AbstractFactoryTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,43 +9,40 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProductItemsFactoryTest {
+class ProductItemsFactoryTest extends AbstractFactoryTest {
 
     ProductItemsFactory sut = new ProductItemsFactory(new OptionCombinationFactory());
 
-    public static final ProductId ANY_ID = ProductId.of("ID");
-    public static final Product PRODUCT_WITH_OPTION = getProduct(1000, getOptions());
-    public static final Product PRODUCT_WITHOUT_OPTION = getProduct(2000, null);
-    public static final OptionCombinationData OPTION_COMBINATION_DATA = getOptionCombinationData(1000);
-    public static final ProductItemData PRODUCT_ITEM_DATA_WITH_OPTIONCOMB = new ProductItemData(0, OPTION_COMBINATION_DATA);
-    public static final ProductItemData PRODUCT_ITEM_DATA_WITHOUT_OPTIONCOMB = new ProductItemData(20, null);
-
     @Test
-    @DisplayName("옵션을 사용하지 않을 경우, Product의 가격이 ProductItem의 가격이 된다.")
-    void calcSalePriceWithoutOption() {
-        List<ProductItem> actual = sut.createBy(List.of(PRODUCT_ITEM_DATA_WITHOUT_OPTIONCOMB), PRODUCT_WITHOUT_OPTION);
-        assertThat(actual.get(0).getSalePrice()).isEqualTo(PRODUCT_WITHOUT_OPTION.getPrice());
+    @DisplayName("옵션 있는 상품 아이템 생성")
+    void createProductItemWithOption() {
+        List<ProductItem> actual = sut.createBy(PRODUCT_ITEMS_DATA_WITH_OPTION);
+        assertThat(actual).isNotNull();
+        assertThat(actual.get(0).getOptionCombination()).isNotNull();
     }
 
     @Test
-    @DisplayName("옵션을 사용할 경우, Product의 price와 OptionCombinationData의 additionalPrice를 더한 값이 ProductItem의 가격이 된다.")
-    void calcSalePriceWithOption() {
-        List<ProductItem> actual = sut.createBy(List.of(PRODUCT_ITEM_DATA_WITH_OPTIONCOMB), PRODUCT_WITH_OPTION);
-        assertThat(actual.get(0).getSalePrice()).isEqualTo(PRODUCT_WITH_OPTION.getPrice() + OPTION_COMBINATION_DATA.getAdditionalPrice());
+    @DisplayName("옵션 없는 상품 아이템 생성")
+    void createProductItemWithoutOption() {
+        List<ProductItem> actual = sut.createBy(PRODUCT_ITEMS_DATA_WITHOUT_OPTION);
+        assertThat(actual).isNotNull();
+        assertThat(actual.size()).isEqualTo(1);
+        assertThat(actual.get(0).getOptionCombination()).isNull();
     }
 
-    private static OptionCombinationData getOptionCombinationData(int additionalPrice) {
-        return new OptionCombinationData(List.of("S", "red"), additionalPrice);
+    @Test
+    @DisplayName("옵션이 있을 경우, 상품 아이템의 가격은 기본가 + 옵션가 이다.")
+    void checkPriceWithOption() {
+        List<ProductItem> list = sut.createBy(PRODUCT_ITEMS_DATA_WITH_OPTION);
+        for (ProductItem actual : list) {
+            assertThat(actual.getSalePrice()).isEqualTo(DEFAULT_PRICE + ADDITIONAL_PRICE);
+        }
     }
 
-    private static List<Option> getOptions() {
-        return List.of(
-                Option.of("size", List.of("S, M")),
-                Option.of("color", List.of("red, blue"))
-        );
-    }
-
-    private static Product getProduct(int price, List<Option> options) {
-        return new Product(ANY_ID, "양말", "양말 사세요", price, options);
+    @Test
+    @DisplayName("옵션이 없을 경우, 상품 아이템의 가격은 기본가 이다.")
+    void checkPriceWithoutOption() {
+        List<ProductItem> actual = sut.createBy(PRODUCT_ITEMS_DATA_WITHOUT_OPTION);
+        assertThat(actual.get(0).getSalePrice()).isEqualTo(DEFAULT_PRICE);
     }
 }
