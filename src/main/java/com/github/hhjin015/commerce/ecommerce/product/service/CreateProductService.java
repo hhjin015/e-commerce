@@ -24,7 +24,6 @@ public class CreateProductService {
         List<ProductItem> productItems = productItemsFactory.createBy(data.getProductItemsData());
         Product product = productFactory.createBy(data.getProductData(), productItems);
 
-        productRepository.save(product);
-        return product.getId();
+        return productRepository.save(product);
     }
 }

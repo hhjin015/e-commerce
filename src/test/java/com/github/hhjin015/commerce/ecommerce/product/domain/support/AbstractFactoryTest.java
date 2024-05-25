@@ -1,13 +1,18 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.support;
 
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombination;
+import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombinationInstantiation;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemId;
+import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemInstantiation;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.*;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 public abstract class AbstractFactoryTest {
+
+    public static OptionCombinationInstantiation instantiation = new OptionCombinationInstantiation();
 
     public static final int DEFAULT_PRICE = 1000;
     public static final int ADDITIONAL_PRICE = 2000;
@@ -16,7 +21,7 @@ public abstract class AbstractFactoryTest {
     public static final ProductItemsData PRODUCT_ITEMS_DATA_WITHOUT_OPTION = getProductItemsDataWithoutOption();
     public static final int ANY_QUANTITY = 10;
 
-    protected static List<OptionData> getOptionData() {
+    protected static List<OptionData> getOptionDataList() {
         return List.of(
                 new OptionData("size", List.of("s, m")),
                 new OptionData("color", List.of("red", "blue"))
@@ -28,11 +33,14 @@ public abstract class AbstractFactoryTest {
     }
 
     protected static List<ProductItem> getProductItems(OptionCombination optionCombination) {
-        return List.of(new ProductItem(ProductItemId.of("ID"), SALE_PRICE, ANY_QUANTITY, optionCombination));
+        ProductItemInstantiation instantiation = new ProductItemInstantiation();
+        ProductItem productItem = instantiation.instantiate(ProductItemId.of("ID"), SALE_PRICE, ANY_QUANTITY, optionCombination, null);
+
+        return List.of(productItem);
     }
 
     protected static OptionCombination getOptionCombination() {
-        return OptionCombination.of(List.of("s", "red"), ADDITIONAL_PRICE);
+        return instantiation.instantiate(List.of("s", "red"), ADDITIONAL_PRICE);
     }
 
     protected static ProductItemsData getProductItemsDataWithOption() {

@@ -4,12 +4,10 @@ import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionCombina
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @NoArgsConstructor
 public class OptionCombinationDto {
-    private List<String> optionNames;
+    private String optionNames;
     private int additionalPrice;
 
     public OptionCombinationData toData() {

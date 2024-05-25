@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,14 +23,13 @@ public class ProductFactory {
                 .map(this::createOptions)
                 .orElse(null);
 
-        return new Product(
-                ProductId.of(UUID.randomUUID().toString()),
-                productData.getName(),
-                productData.getDescription(),
-                productData.getPrice(),
-                options,
-                productItems
-        );
+        return Product.builder()
+                .name(productData.getName())
+                .description(productData.getDescription())
+                .price(productData.getPrice())
+                .options(options)
+                .productItems(productItems)
+                .build();
     }
 
     private List<Option> createOptions(List<OptionData> optionDataList) {

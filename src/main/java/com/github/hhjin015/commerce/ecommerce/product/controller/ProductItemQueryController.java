@@ -30,7 +30,7 @@ public class ProductItemQueryController {
 
     private static ProductItemResponse getProductItemResponse(ProductItem pi) {
         return new ProductItemResponse(
-                pi.getProductItemId().getValue(),
+                pi.getId().getValue(),
                 pi.getSalePrice(),
                 pi.getQuantity(),
                 pi.getOptionCombination(),

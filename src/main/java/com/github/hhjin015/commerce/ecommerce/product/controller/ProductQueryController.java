@@ -41,7 +41,7 @@ public class ProductQueryController {
         for (ProductItem pi : p.getProductItems()) {
             productItemResponseList.add(
                     new ProductItemResponse(
-                            pi.getProductItemId().getValue(),
+                            pi.getId().getValue(),
                             pi.getSalePrice(),
                             pi.getQuantity(),
                             pi.getOptionCombination(),

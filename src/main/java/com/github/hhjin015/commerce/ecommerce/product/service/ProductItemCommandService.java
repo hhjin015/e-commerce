@@ -3,16 +3,21 @@ package com.github.hhjin015.commerce.ecommerce.product.service;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombination;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombinationFactory;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.Product;
+import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.product.ProductRepository;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItem;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemId;
 import com.github.hhjin015.commerce.ecommerce.product.domain.productitem.ProductItemsFactory;
+import com.github.hhjin015.commerce.ecommerce.product.entity.ProductItemEntity;
+import com.github.hhjin015.commerce.ecommerce.product.infra.ProductItemJpaRepository;
 import com.github.hhjin015.commerce.ecommerce.product.service.data.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -25,15 +30,26 @@ public class ProductItemCommandService {
     private final ProductItemsFactory productItemsFactory;
     private final OptionCombinationFactory optionCombinationFactory;
 
-    public void decreaseQuantity(String id, int amount) {
-        ProductItem productItem = productRepository.findProductItemBy(ProductItemId.of(id))
-                .orElseThrow(() -> new NoSuchElementException("상품 아이템이 존재하지 않습니다."));
+
+    public void decreaseQuantity(String productItemId, String productId, int amount) {
+        Product product = productRepository.findBy(ProductId.of(productId))
+                .orElseThrow(() -> new NoSuchElementException("해당 상품이 존재하지 않습니다.."));
+
+        ProductItem productItem = product.getProductItem(ProductItemId.of(productItemId))
+                .orElseThrow(() -> new NoSuchElementException("해당 상품 아이템이 존재하지 않습니다."));
 
         productItem.decreaseQuantity(amount);
+        productRepository.save(product);
     }
 
+    @Transactional
     public void modifyProductItem(ModifyProductItemData data) {
-        Product product = data.getProduct();
+        Product product = productRepository.findBy(ProductId.of(data.getProductId()))
+                .orElseThrow(() -> new NoSuchElementException("해당 상품이 존재하지 않습니다."));
+
+        if (product.getOptions() == null) {
+            throw new IllegalArgumentException();
+        }
 
         add(nonNull(product.getOptions()), product, data.getAddData());
         update(product, data.getUpdateData());
@@ -42,11 +58,11 @@ public class ProductItemCommandService {
         productRepository.save(product);
     }
 
-    private static void remove(Product product, List<RemoveProductItemData> removeData) {
+    private void remove(Product product, List<RemoveProductItemData> removeData) {
         if (isNull(removeData)) return;
 
         for (RemoveProductItemData data : removeData) {
-            product.getProductItems().removeIf(pi -> ProductItemId.of(data.getId()).equals(pi.getProductItemId()));
+            product.removeProductItem(ProductItemId.of(data.getId()));
         }
     }
 
@@ -56,7 +72,7 @@ public class ProductItemCommandService {
         updateData.forEach(data -> {
             ProductItemId targetItemId = ProductItemId.of(data.getProductItemId());
             boolean found = product.getProductItems().stream()
-                    .filter(pi -> targetItemId.equals(pi.getProductItemId()))
+                    .filter(pi -> targetItemId.equals(pi.getId()))
                     .findFirst()
                     .map(pi -> {
                         OptionCombination newOptionComb = getNewOptionCombination(pi.getOptionCombination(), data.getAdditionalPrice());

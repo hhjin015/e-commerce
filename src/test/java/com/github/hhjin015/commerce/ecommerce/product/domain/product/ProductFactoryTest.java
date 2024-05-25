@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ProductFactoryTest extends AbstractFactoryTest {
 
     public static final ProductData PRODUCT_DATA_WITHOUT_OPTION = getProductData(null);
-    public static final ProductData PRODUCT_DATA_WITH_OPTION = getProductData(getOptionData());
+    public static final ProductData PRODUCT_DATA_WITH_OPTION = getProductData(getOptionDataList());
     public static final List<ProductItem> PRODUCT_ITEMS_WITHOUT_OPTION_COMBINATION = getProductItems(null);
     public static final List<ProductItem> PRODUCT_ITEMS_WITH_OPTION_COMBINATION = getProductItems(getOptionCombination());
 

@@ -34,6 +34,6 @@ public class CreateProductTest extends AbstractFactoryTest {
     }
 
     private static CreateProductData getCreateProductData() {
-        return new CreateProductData(getProductData(getOptionData()), getProductItemsDataWithOption());
+        return new CreateProductData(getProductData(getOptionDataList()), getProductItemsDataWithOption());
     }
 }

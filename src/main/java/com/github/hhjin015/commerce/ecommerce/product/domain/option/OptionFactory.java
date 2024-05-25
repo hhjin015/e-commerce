@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 public class OptionFactory {
 
     public Option createBy(OptionData optionData) {
-        return Option.of(optionData.getName(), optionData.getValues());
+        return new Option(optionData.getName(), optionData.getValues());
     }
 }

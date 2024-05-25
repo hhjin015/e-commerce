@@ -22,14 +22,14 @@ public class ModifyProductItemRequest {
     private List<UpdateProductItemDto> update;
     private List<RemoveProductItemDto> remove;
 
-    public ModifyProductItemData toData(Product product) {
+    public ModifyProductItemData toData(String productId) {
         List<ProductItemData> addData = getAddData();
 
         List<UpdateProductItemData> updateData = getUpdateData();
 
         List<RemoveProductItemData> removeData = getRemoveData();
 
-        return new ModifyProductItemData(product, addData, updateData, removeData);
+        return new ModifyProductItemData(productId, addData, updateData, removeData);
     }
 
     private List<ProductItemData> getAddData() {

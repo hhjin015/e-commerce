@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class ModifyProductItemData {
-    private Product product;
+    private String productId;
     private List<ProductItemData> addData;
     private List<UpdateProductItemData> updateData;
     private List<RemoveProductItemData> removeData;

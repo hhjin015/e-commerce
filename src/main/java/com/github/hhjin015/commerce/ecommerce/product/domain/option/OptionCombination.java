@@ -1,11 +1,14 @@
 package com.github.hhjin015.commerce.ecommerce.product.domain.option;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.ToString;
 import lombok.Value;
 
-import java.util.List;
-
-@Value(staticConstructor = "of")
+@Value
+@Builder(access = AccessLevel.PROTECTED)
+@ToString
 public class OptionCombination {
-    List<String> optionNames;
+    String optionNames;
     int additionalPrice;
 }

@@ -19,20 +19,21 @@ public class HashMapProductRepository implements ProductRepository {
     private final Map<ProductId, Product> storage = new HashMap<>();
 
     @Override
-    public void save(Product product) {
+    public ProductId save(Product product) {
         storage.put(product.getId(), product);
+        return product.getId();
     }
 
     @Override
     public Optional<Product> findBy(ProductId id) {
-        if(nonNull(storage.get(id))) return Optional.of(storage.get(id));
+        if (nonNull(storage.get(id))) return Optional.of(storage.get(id));
         return Optional.empty();
     }
 
     public Optional<ProductItem> findProductItemBy(ProductItemId id) {
         for (Product product : storage.values()) {
             for (ProductItem pi : product.getProductItems()) {
-                if (pi.getProductItemId().equals(id)) {
+                if (pi.getId().equals(id)) {
                     return Optional.of(pi);
                 }
             }

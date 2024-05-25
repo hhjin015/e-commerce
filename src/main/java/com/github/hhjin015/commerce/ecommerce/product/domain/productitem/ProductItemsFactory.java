@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,13 +24,16 @@ public class ProductItemsFactory {
     }
 
     private ProductItem createProductItem(ProductItemsData productItemsData, ProductItemData productItemData) {
-        String itemId = UUID.randomUUID().toString();
         int price = calculateSalePrice(productItemsData.isOptionUsable(), productItemsData.getDefaultPrice(), productItemData.getOptionCombinationData());
         int quantity = productItemData.getQuantity();
 
         OptionCombination optionCombination = createOptionCombination(productItemsData.isOptionUsable(), productItemData);
 
-        return new ProductItem(ProductItemId.of(itemId), price, quantity, optionCombination);
+        return ProductItem.builder()
+                .salePrice(price)
+                .quantity(quantity)
+                .optionCombination(optionCombination)
+                .build();
     }
 
     private int calculateSalePrice(boolean isOptionUsable, int defaultPrice, OptionCombinationData optionCombinationData) {

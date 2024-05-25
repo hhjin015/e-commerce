@@ -10,10 +10,10 @@ import com.github.hhjin015.commerce.ecommerce.product.service.data.ModifyProduct
 import com.github.hhjin015.commerce.ecommerce.product.service.data.OptionData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -25,11 +25,11 @@ public class ProductCommandService {
     private final ProductRepository productRepository;
     private final OptionFactory optionFactory;
 
+    @Transactional
     public void modifyProduct(String id, ModifyProductData data) {
-        Optional<Product> optP = productRepository.findBy(ProductId.of(id));
-        if (optP.isEmpty()) throw new NoSuchElementException("해당 상품이 존재하지 않습니다.");
+        Product p = productRepository.findBy(ProductId.of(id)).orElseThrow(
+                () -> new NoSuchElementException("해당 상품이 존재하지 않습니다."));
 
-        Product p = optP.get();
         p.update(
                 isNull(data.getName()) ? p.getName() : data.getName(),
                 isNull(data.getDescription()) ? p.getDescription() : data.getDescription(),

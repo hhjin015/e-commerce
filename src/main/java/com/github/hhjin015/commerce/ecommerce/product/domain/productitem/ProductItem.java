@@ -2,25 +2,22 @@ package com.github.hhjin015.commerce.ecommerce.product.domain.productitem;
 
 import com.github.hhjin015.commerce.ecommerce.product.domain.ProductItemSalesStatus;
 import com.github.hhjin015.commerce.ecommerce.product.domain.option.OptionCombination;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import static java.util.Objects.isNull;
 
 @Getter
+@Builder(access = AccessLevel.PROTECTED)
 public class ProductItem {
-    private final ProductItemId productItemId;
+    private final ProductItemId id;
     private int salePrice;
     private int quantity;
     private OptionCombination optionCombination;
-    private ProductItemSalesStatus salesStatus;
-
-    public ProductItem(ProductItemId productItemId, int salePrice, int quantity, OptionCombination optionCombination) {
-        this.productItemId = productItemId;
-        this.salePrice = salePrice;
-        this.quantity = quantity;
-        this.optionCombination = optionCombination;
-        this.salesStatus = ProductItemSalesStatus.ON_SALE;
-    }
+    @Builder.Default
+    private ProductItemSalesStatus salesStatus = ProductItemSalesStatus.ON_SALE;
 
     public void update(int quantity, OptionCombination optionCombination, int defaultPrice) {
         this.quantity = quantity;

@@ -23,8 +23,8 @@ public class ProductItemCommandController {
     @PatchMapping("/product-items")
     public ResponseEntity<String> modifyProductItem(@RequestParam("productId") String productId, @Valid @RequestBody ModifyProductItemRequest request) {
         try {
-            Product product = productQueryService.findBy(productId);
-            ModifyProductItemData modifyData = request.toData(product);
+            ModifyProductItemData modifyData = request.toData(productId);
+
             productItemCommandService.modifyProductItem(modifyData);
 
             return ResponseEntity.noContent().build();
@@ -34,10 +34,10 @@ public class ProductItemCommandController {
         }
     }
 
-    @PatchMapping("/product-items/{id}/quantity")
-    public ResponseEntity<String> decreaseQuantity(@PathVariable String id, @Valid @RequestBody DecreaseQuantityRequest request) {
+    @PatchMapping("/product-items/{productItemId}/quantity")
+    public ResponseEntity<String> decreaseQuantity(@PathVariable String productItemId, @Valid @RequestBody DecreaseQuantityRequest request) {
         try {
-            productItemCommandService.decreaseQuantity(id, request.getDecreaseAmount());
+            productItemCommandService.decreaseQuantity(productItemId, request.getProductId(), request.getDecreaseAmount());
             return ResponseEntity.ok().body("정상 감소되었습니다.");
         } catch (IllegalStateException | NoSuchElementException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

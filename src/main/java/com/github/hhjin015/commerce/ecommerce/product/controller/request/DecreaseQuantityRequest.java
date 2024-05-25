@@ -11,4 +11,6 @@ public class DecreaseQuantityRequest {
     @NotNull
     @Min(1)
     private Integer decreaseAmount;
+    @NotNull
+    private String productId;
 }
